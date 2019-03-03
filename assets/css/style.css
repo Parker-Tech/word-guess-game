@@ -1,0 +1,14 @@
+/* So add some fonts, im thinking science themed so im not sure what that entails
+ */
+
+.container {
+    line-height: 2.5;
+}
+
+.mt-30 {
+    margin-top: 30px;
+}
+
+.letter-spacing {
+    letter-spacing: 10px;
+}
