@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Hangman?</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container justify-content-center text-center">    
+            <h1>Hangman</h1> 
+            <p>Guess the word! You have 10 guesses.</p> 
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 text-center">
+               <h2>Press any key to get started!</h2>
+               <p>_ _ _ _ _ _ _ _placeholder</p>     
+            </div>
+            
+            <div class="col-sm-6">
+                <p>Letters Guessed: </p>
+                <p>Number of Guesses Left: </p>
+                <p>Number of Wins: </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
