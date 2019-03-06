@@ -49,11 +49,15 @@ var correctGuesses = [];
 var guessesLeft = 13;
 var theChoice;
 var choiceIndex;
-var regex0 = /[a-z]/g
 var smartChoiceSearch; //= new RegExp(theChoice, "g");
 var indexArray = []; //= word.match(smartChoiceSearch);
 var replaceBothVar;
 var indicies = [];
+
+var regex0 = /^[a-z]*$/
+// var regex0 = /[a-z]gi/;
+// var regex0 = /[a-z]gi/;
+// var regex0 = /[a-z]/g
 // var indexArrayIndex1 = indexArray[0];
 // var indexArrayIndex2 = indexArray[1];
 // console.log(indexArray);
@@ -64,24 +68,37 @@ String.prototype.replaceAt = function(index, replacement) {
   return this.substr(0, index) + replacement + this.substr(index + 1);
 }  
 
-String.prototype.replaceTwo = function(indexArray, replacement) {
-  // console.log(indexArray[0]);
-  // console.log(indexArray[1]);
-  return this.substr(0, indexArray[0]) + replacement + this.substr(indexArray[0], indexArray[1]) // + replacement + this.substr(indexArray[1] + 1);
+// String.prototype.replaceTwo = function(indexArray, replacement) {
+//   // console.log(indexArray[0]);
+//   // console.log(indexArray[1]);
+//   return this.substr(0, indexArray[0]) + replacement + this.substr(indexArray[0], indexArray[1]) // + replacement + this.substr(indexArray[1] + 1);
 
   
-
-  // console.log(this.split(replacement, 2));
-  // return this.split(replacement, 2);
-      // adds underscores to the inside of the first substring and the inside of the second substring as well, making it two extra underscores
-  // var retStr = this;
-  // console.log(retStr);
-  // for (var x in ) {
-  //     retStr = retStr.replace(new RegExp(replacement, 'g'), obj[replacement]);
-  // }
-  // return retStr;
-  // cant use this because I am replacing by index and for that you need a comparison that i dont have
+// }
+// im rewriting this to take in 3 arguments function(index1, index2, replacement) bc reading off the index array is geting tedious and it breaks
+String.prototype.replaceTwo = function(index1, index2, replacement) {
+  console.log(index1);
+  console.log(index2);
+  console.log(replacement);
+  return this.substring(0, index1) + replacement + this.substring(index1 + 1, index2) + replacement + this.substring(index2 + 1);
 }
+
+
+
+
+
+// ^^^^^^^^^^^^^^^^ these notes belong to replaceTwo() ^^^^^^^^^^^^^^^^^^^
+// console.log(this.split(replacement, 2));
+// return this.split(replacement, 2);
+    // adds underscores to the inside of the first substring and the inside of the second substring as well, making it two extra underscores
+// var retStr = this;
+// console.log(retStr);
+// for (var x in ) {
+//     retStr = retStr.replace(new RegExp(replacement, 'g'), obj[replacement]);
+// }
+// return retStr;
+// cant use this because I am replacing by index and for that you need a comparison that i dont have
+
 
 String.prototype.replaceThree = function(indexArray, replacement) {    
   return this.substr(0, indexArray[0]) + replacement + this.substr(indexArray[0], indexArray[1]) + replacement + this.substring(indexArray[1]);
@@ -109,7 +126,15 @@ function findMultipleIndecies(str) {
         console.log(indexArray);
         console.log("not a match")
     }
+  }
 }
+
+function letterCheck(char) {
+  if(regex0.test(char)) {
+    return true;
+  }else {
+    return false;
+  }
 }
 
 for(i = 0; i < word.length; i++) { 
@@ -121,62 +146,68 @@ for(i = 0; i < word.length; i++) {
 testingVar.insertAdjacentHTML("beforeend", word); //just for testing the word
 
 document.onkeydown = function(event) {
-  theChoice = event.key.toLowerCase();
-  
-  // guesses.push(theChoice);         
-  // smartChoiceSearch = new RegExp(theChoice, "g");
-  // indexArray = word.match(smartChoiceSearch);
-  // for(i = 0; i < word.length; i++){
-  //     if(word[i] == theChoice) {
-  //         indexArray.push(i);
-  //     }
-  // }
-  console.log(indexArray.length);
-  // console.log(smartChoiceSearch);
-  
-  if(word.includes(theChoice)){ //add && theChoice.isNotIn(correctGuessArray)
-    findMultipleIndecies(word);
-    console.log(indexArray);
-    choiceIndex = word.indexOf(theChoice);
-    choiceIndex2 = word.indexOf(theChoice, choiceIndex + 1);
-    console.log(choiceIndex2);
-    changeUnderscoreVar = document.getElementById("placeholder").innerHTML;
-    correctGuesses.push(theChoice);
-    
-    if(indexArray.length == 1 || indexArray.length == 0){
-      document.getElementById("placeholder").innerHTML = changeUnderscoreVar.replaceAt(choiceIndex, theChoice);//you have to do this bc strings are immutable in javascript
-    }else if(indexArray.length == 2){           
-      document.getElementById("placeholder").innerHTML = changeUnderscoreVar.replaceTwo(indexArray, theChoice);
-      console.log(changeUnderscoreVar);
-    }else if(indexArray.length == 3){         
-      document.getElementById("placeholder").innerHTML = changeUnderscoreVar.replaceThree(indexArray, theChoice);
-    }else{
-      document.getElementById("placeholder").innerHTML = "you done messed up A-Aron";
-      console.log(indexArray);
-    }
-    console.log(changeUnderscoreVar);
-    console.log(choiceIndex);
-    
-    // DEPRICATED
-    // underscoreVar[choiceIndex] = theChoice;
-    //going to try and use inner html to write over the whole #placeholder but aslo use a loop to put underscores
-    //on the non picked letters
-    // changeUnderscoreVar[choiceIndex] = theChoice;
-    // just append underscoreVar with a normal array method then use .inner html just to push that 
-    // alert(theChoice);
 
-    // if(changedUnderscoreVar.check(word)){
-    //    alert("You Win!")
-    //}
-  }else{
-    // guesses.push(theChoice.toString());  
-    // console.log(guesses);
-    // console.log(choiceIndex);
-    // console.log(underscoreVar[0]);
-    alert("You failed!");
-    wrongGuesses.push(theChoice);
-    guessesLeft--;
+  theChoice = event.key.toLowerCase();
+  if(letterCheck(theChoice)){
+
+    allGuessArr.push()
+    // guesses.push(theChoice);         
+    // smartChoiceSearch = new RegExp(theChoice, "g");
+    // indexArray = word.match(smartChoiceSearch);
+    // for(i = 0; i < word.length; i++){
+    //     if(word[i] == theChoice) {
+    //         indexArray.push(i);
+    //     }
+    // }
+    console.log(indexArray.length);
+    // console.log(smartChoiceSearch);
+
+    if(word.includes(theChoice)){ //add && theChoice.isNotIn(correctGuessArray)
+      
+      // findMultipleIndecies(word);
+      console.log(indexArray);
+      choiceIndex = word.indexOf(theChoice);
+      choiceIndex2 = word.indexOf(theChoice, choiceIndex + 1);
+      console.log(choiceIndex2);
+      changeUnderscoreVar = document.getElementById("placeholder").innerHTML;
+      correctGuesses.push(theChoice);
+      
+      if(indexArray.length == 1 || indexArray.length == 0){
+        document.getElementById("placeholder").innerHTML = changeUnderscoreVar.replaceAt(choiceIndex, theChoice);//you have to do this bc strings are immutable in javascript
+      }else if(indexArray.length == 2){           
+        document.getElementById("placeholder").innerHTML = changeUnderscoreVar.replaceTwo(choiceIndex, choiceIndex2, theChoice);
+        console.log(changeUnderscoreVar);
+      }else if(indexArray.length == 3){         
+        document.getElementById("placeholder").innerHTML = changeUnderscoreVar.replaceThree(indexArray, theChoice);
+      }else{
+        document.getElementById("placeholder").innerHTML = "you done messed up A-Aron";
+        console.log(indexArray);
+      }
+      console.log(changeUnderscoreVar);
+      console.log(choiceIndex);
+      
+      // DEPRICATED
+      // underscoreVar[choiceIndex] = theChoice;
+      //going to try and use inner html to write over the whole #placeholder but aslo use a loop to put underscores
+      //on the non picked letters
+      // changeUnderscoreVar[choiceIndex] = theChoice;
+      // just append underscoreVar with a normal array method then use .inner html just to push that 
+      // alert(theChoice);
+
+      // if(changedUnderscoreVar.check(word)){
+      //    alert("You Win!")
+      //}
+    }else{
+      // guesses.push(theChoice.toString());  
+      // console.log(guesses);
+      // console.log(choiceIndex);
+      // console.log(underscoreVar[0]);
+      alert("You failed!");
+      wrongGuesses.push(theChoice);
+      guessesLeft--;
+    }
+    indexArray = []; //resets array so it doesnt stack with all the other indecies
+  }else {
+    alert("No numbers, spaces or special characters are in any of these words.");
   }
-  indexArray = []; //resets array so it doesnt stack with all the other indecies
-  
 }
