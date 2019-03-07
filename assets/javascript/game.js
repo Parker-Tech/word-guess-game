@@ -39,19 +39,19 @@ var wordList = ["astronomy", "astrophysics", "atom",
 "zoology"]
 
 
-var word = "data"//wordList[Math.floor(Math.random() * wordList.length)];
+var word = wordList[Math.floor(Math.random() * wordList.length)];
 var initialUnderscore = document.getElementById("placeholder");
 var changeUnderscore;
 var testingVar = document.getElementById("testing");
 var allGuessArr = [];
 var wrongGuesses = [];
 var correctGuesses = [];
+var underScoreArr = [];
 var guessesLeft = 13;
 var theChoice;
 var choiceIndex;
-var smartChoiceSearch;
+var underScoreNew;
 var indexArray = []; 
-var replaceBothVar;
 var indicies = [];
 var regex0 = /^[a-z]*$/
 
@@ -59,8 +59,8 @@ var regex0 = /^[a-z]*$/
 function replaceCharInUnderscore(chosenWord, underScores, char) {
   for(i = 0; i < chosenWord.length; i++){
     if(chosenWord[i] == char){
-      underScores[i] = char;
-      underScores = underScores
+      underScores = underScores.substring(0, i) + char + underScores.substring(i + 1);
+      document.getElementById("placeholder").innerHTML = underScores;
     }
   }
 }
@@ -105,7 +105,7 @@ document.onkeydown = function(event) {
       // console.log(choiceIndex2);
       changeUnderscore = document.getElementById("placeholder").innerHTML;
       correctGuesses.push(theChoice);
-      changeUnderscore.replaceCharInUnderscore(word, changeUnderscore, theChoice);
+      replaceCharInUnderscore(word, changeUnderscore, theChoice);
 
       // if(indexArray.length == 1 || indexArray.length == 0){
       //   // document.getElementById("placeholder").innerHTML = changeUnderscore.replaceCharInUnderscore(choiceIndex, theChoice);//you have to do this bc strings are immutable in javascript
