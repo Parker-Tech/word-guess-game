@@ -12,3 +12,8 @@
 .letter-spacing {
   letter-spacing: 10px;
 }
+
+#large-win-font {
+  color: #83C1FF;
+  font-size: 60px;
+}
