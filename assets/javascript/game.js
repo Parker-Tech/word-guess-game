@@ -39,8 +39,11 @@ var wordList = ["astronomy", "astrophysics", "atom",
 "zoology"]
 
 
-var word = wordList[Math.floor(Math.random() * wordList.length)];
-var underscoreVar = document.getElementById("placeholder");
+var word = "data"//wordList[Math.floor(Math.random() * wordList.length)];
+// var wordLastChar; //= word[word.length - 1];
+// var underScoreLastChar; //= changeUnderscoreVar[changeUnderscoreVar.length - 1];
+// var replaceLastUnderScore; //= changeUnderscoreVar.replace(underScoreLastChar, wordLastChar);    This isnt going to work because it only checks for linear wins, not for a word like togo where index 1 and 3 are the same
+var initialUnderscoreVar = document.getElementById("placeholder");
 var changeUnderscoreVar;
 var testingVar = document.getElementById("testing");
 var allGuessArr = [];
@@ -54,24 +57,29 @@ var indexArray = []; //= word.match(smartChoiceSearch);
 var replaceBothVar;
 var indicies = [];
 
+
 var regex0 = /^[a-z]*$/
 // var regex0 = /[a-z]gi/;
 // var regex0 = /[a-z]gi/;
 // var regex0 = /[a-z]/g
-// var indexArrayIndex1 = indexArray[0];
-// var indexArrayIndex2 = indexArray[1];
-// console.log(indexArray);
+// var allGuessArrIndex1 = allGuessArr[0];
+// var allGuessArrIndex2 = allGuessArr[1];
+// console.log(allGuessArr);
 // console.log(smartChoiceSearch);
 
+
+// function replaceAt(index, replacement) {
+//   return this.substr(0, index) + replacement + this.substr(index + 1);
+// }  
 
 String.prototype.replaceAt = function(index, replacement) {
   return this.substr(0, index) + replacement + this.substr(index + 1);
 }  
 
-// String.prototype.replaceTwo = function(indexArray, replacement) {
-//   // console.log(indexArray[0]);
-//   // console.log(indexArray[1]);
-//   return this.substr(0, indexArray[0]) + replacement + this.substr(indexArray[0], indexArray[1]) // + replacement + this.substr(indexArray[1] + 1);
+// String.prototype.replaceTwo = function(allGuessArr, replacement) {
+//   // console.log(allGuessArr[0]);
+//   // console.log(allGuessArr[1]);
+//   return this.substr(0, allGuessArr[0]) + replacement + this.substr(allGuessArr[0], allGuessArr[1]) // + replacement + this.substr(allGuessArr[1] + 1);
 
   
 // }
@@ -80,6 +88,9 @@ String.prototype.replaceTwo = function(index1, index2, replacement) {
   console.log(index1);
   console.log(index2);
   console.log(replacement);
+  console.log(this.substring(0, index1));
+  console.log(this.substring(index1 + 1, index2));
+  console.log(this.substring(index2 + 1));
   return this.substring(0, index1) + replacement + this.substring(index1 + 1, index2) + replacement + this.substring(index2 + 1);
 }
 
@@ -100,8 +111,8 @@ String.prototype.replaceTwo = function(index1, index2, replacement) {
 // cant use this because I am replacing by index and for that you need a comparison that i dont have
 
 
-String.prototype.replaceThree = function(indexArray, replacement) {    
-  return this.substr(0, indexArray[0]) + replacement + this.substr(indexArray[0], indexArray[1]) + replacement + this.substring(indexArray[1]);
+String.prototype.replaceThree = function(allGuessArr, replacement) {    
+  return this.substr(0, allGuessArr[0]) + replacement + this.substr(allGuessArr[0], allGuessArr[1]) + replacement + this.substring(allGuessArr[1]);
 }
   //.replaceAt() takes eveything from index 0 to index of choiceIndex, then puts in the replacement(theChoice) and then
   // adds the rest of the string back on
@@ -113,7 +124,7 @@ String.prototype.replaceThree = function(indexArray, replacement) {
 //     underscoreVar.insertAdjacentHTML("afterbegin", "_ ")
 // });
 
-function findMultipleIndecies(str) {
+function findMultipleIndecies(str) { //using this as a counter for multiple instances of a char in word
   for(i = 0; i < str.length; i++){
       // console.log(str[i]);
       // console.log(theChoice);
@@ -138,7 +149,7 @@ function letterCheck(char) {
 }
 
 for(i = 0; i < word.length; i++) { 
-  underscoreVar.insertAdjacentHTML("beforeend", "_");
+  initialUnderscoreVar.insertAdjacentHTML("beforeend", "_");
 }
 
 
@@ -153,39 +164,41 @@ document.onkeydown = function(event) {
     allGuessArr.push()
     // guesses.push(theChoice);         
     // smartChoiceSearch = new RegExp(theChoice, "g");
-    // indexArray = word.match(smartChoiceSearch);
+    // allGuessArr = word.match(smartChoiceSearch);
     // for(i = 0; i < word.length; i++){
     //     if(word[i] == theChoice) {
-    //         indexArray.push(i);
+    //         allGuessArr.push(i);
     //     }
     // }
-    console.log(indexArray.length);
+    console.log(allGuessArr.length);
     // console.log(smartChoiceSearch);
 
     if(word.includes(theChoice)){ //add && theChoice.isNotIn(correctGuessArray)
       
-      // findMultipleIndecies(word);
-      console.log(indexArray);
+      findMultipleIndecies(word);
+      console.log(allGuessArr);
       choiceIndex = word.indexOf(theChoice);
       choiceIndex2 = word.indexOf(theChoice, choiceIndex + 1);
-      console.log(choiceIndex2);
+      // console.log(choiceIndex2);
       changeUnderscoreVar = document.getElementById("placeholder").innerHTML;
       correctGuesses.push(theChoice);
       
-      if(indexArray.length == 1 || indexArray.length == 0){
+      if(indexArray.length == 1 || allGuessArr.length == 0){
         document.getElementById("placeholder").innerHTML = changeUnderscoreVar.replaceAt(choiceIndex, theChoice);//you have to do this bc strings are immutable in javascript
       }else if(indexArray.length == 2){           
         document.getElementById("placeholder").innerHTML = changeUnderscoreVar.replaceTwo(choiceIndex, choiceIndex2, theChoice);
         console.log(changeUnderscoreVar);
       }else if(indexArray.length == 3){         
-        document.getElementById("placeholder").innerHTML = changeUnderscoreVar.replaceThree(indexArray, theChoice);
+        document.getElementById("placeholder").innerHTML = changeUnderscoreVar.replaceThree(allGuessArr, theChoice);
       }else{
         document.getElementById("placeholder").innerHTML = "you done messed up A-Aron";
-        console.log(indexArray);
+        console.log(allGuessArr);
       }
       console.log(changeUnderscoreVar);
       console.log(choiceIndex);
       
+      //(word - the last _)
+
       // DEPRICATED
       // underscoreVar[choiceIndex] = theChoice;
       //going to try and use inner html to write over the whole #placeholder but aslo use a loop to put underscores
@@ -206,8 +219,14 @@ document.onkeydown = function(event) {
       wrongGuesses.push(theChoice);
       guessesLeft--;
     }
-    indexArray = []; //resets array so it doesnt stack with all the other indecies
+    indexArray = []; //resets array so it doesnt stack with all the other indecies     <<<<<<< This was required for selecteMultipleIndecies() !!!!!!!!
   }else {
     alert("No numbers, spaces or special characters are in any of these words.");
   }
+
+  if(word == changeUnderscoreVar){
+    alert("wow you actually won");
+  }
+  console.log(word)
+  // console.log(replaceLastUnderScore)
 }
