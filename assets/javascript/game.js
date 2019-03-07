@@ -73,7 +73,7 @@ var regex0 = /^[a-z]*$/
 // }  
 
 String.prototype.replaceAt = function(index, replacement) {
-  return this.substr(0, index) + replacement + this.substr(index + 1);
+  return this.substring(0, index) + replacement + this.substring(index + 1);
 }  
 
 // String.prototype.replaceTwo = function(allGuessArr, replacement) {
@@ -183,7 +183,7 @@ document.onkeydown = function(event) {
       changeUnderscoreVar = document.getElementById("placeholder").innerHTML;
       correctGuesses.push(theChoice);
       
-      if(indexArray.length == 1 || allGuessArr.length == 0){
+      if(indexArray.length == 1 || indexArray.length == 0){
         document.getElementById("placeholder").innerHTML = changeUnderscoreVar.replaceAt(choiceIndex, theChoice);//you have to do this bc strings are immutable in javascript
       }else if(indexArray.length == 2){           
         document.getElementById("placeholder").innerHTML = changeUnderscoreVar.replaceTwo(choiceIndex, choiceIndex2, theChoice);
