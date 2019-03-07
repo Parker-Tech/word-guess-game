@@ -14,14 +14,32 @@ var winCheckStr;
 var wrongGuessesTaken = 0;
 var totalAllowedGuesses = 13;
 var theChoice;
-var underScoreNew;
-var indexArray = []; 
-var indicies = [];
+var totalWinCounter = 0;
 var regex0 = /^[a-z]*$/
 
 
-for(i = 0; i < word.length; i++) { 
-  initialUnderscore.insertAdjacentHTML("beforeend", "_");
+// for(i = 0; i < word.length; i++) { 
+//   initialUnderscore.insertAdjacentHTML("beforeend", "_");
+// }
+
+function initializeInformation(word){
+  for(i = 0; i < word.length; i++) { 
+    initialUnderscore.insertAdjacentHTML("beforeend", "_");
+  }
+
+  testingVar.insertAdjacentHTML("beforeend", word); //just for testing the word
+
+  document.getElementById("number-guesses-left").insertAdjacentHTML("beforeend", totalAllowedGuesses);
+  document.getElementById("number-wins").insertAdjacentHTML("beforeend", totalWinCounter);
+
+}
+
+function clearPreviousParameters() {
+  document.getElementById("placeholder").innerHTML = "";
+  document.getElementById("letters-guessed").innerHTML = "Letters Guessed: ";
+  document.getElementById("number-guesses-left").innerHTML = "Number of Guesses Left: ";
+  document.getElementById("number-wins").innerHTML = "Number of Wins: "
+  document.getElementById("testing").innerHTML = "Word: ";
 }
 
 function replaceCharInUnderscore(chosenWord, underScores, char) {
@@ -31,7 +49,8 @@ function replaceCharInUnderscore(chosenWord, underScores, char) {
       document.getElementById("placeholder").innerHTML = underScores;
     }
   }
-  winCheckStr = underScores;
+  // winCheckStr = underScores;
+  winCheck(underScores);
 }
 
 function letterCheck(char) {
@@ -44,75 +63,20 @@ function letterCheck(char) {
 
 function winCheck(str) {
   if(str == word){
-    document.getElementById("jumbotron-win-screen").innerHTML("<h1>You Win!</h1>").setAttribute("id", "large-win-font");
-    
-    // var reloadConfirm = confirm("You Win!\nPlay Again?")
-    // if(reloadConfirm){
-    //   location.reload();
-    // }else{
-    //   //something funny?
-    // }
+    totalWinCounter++;
+    document.getElementById("jumbotron-win-screen").innerHTML = '<h1 class="large-win-font">You Win!</h1><p>Click Me to Play Again!</p>';
+    document.getElementById("jumbotron-win-screen").onclick = function() {resetGame()};
   }
 }
 
-// function charFilter(event) {
+function resetGame() {
+  var word = wordList[Math.floor(Math.random() * wordList.length)];
+  clearPreviousParameters();
+  initializeInformation(word);
+  console.log()
+}
 
-//   theChoice = event.key.toLowerCase();
-  
-//   if(letterCheck(theChoice)){
-
-//     allGuessArr.push(theChoice);  // use allGuessArr to check if the key has been hit already
-
-//     if(word.includes(theChoice)){ //add && theChoice.isNotIn(correctGuessArray)   
-
-//       changeUnderscore = document.getElementById("placeholder").innerHTML;
-//       correctGuesses.push(theChoice);
-//       replaceCharInUnderscore(word, changeUnderscore, theChoice);
-
-//     }else{
-
-//       theChoice = theChoice.toUpperCase();
-
-//       if(wrongGuessesTaken == 0){
-//         document.getElementById("letters-guessed").insertAdjacentText("beforeend", theChoice);
-//       }else{
-//         document.getElementById("letters-guessed").insertAdjacentText("beforeend",  " | " + theChoice);
-//       }
-
-//       if(wrongGuessesTaken == 13){
-//         var reloadConfirm = confirm("You Lose\nTry Again?")   //play Bruh sound effect #2
-//         if(reloadConfirm){
-//           location.reload();
-//         }else{
-//           //something funny?
-//         }
-//       }
-      
-//       wrongGuessesTaken++;
-
-//       document.getElementById("number-guesses-left").innerText = "Number of Guesses Left: " + (totalAllowedGuesses - wrongGuessesTaken);
-
-
-//     }
-
-//   }else {
-
-//     alert("No numbers, spaces or special characters are in any of these words.");
-
-//   }
-
-// }
-
-// testingVar.insertAdjacentHTML("beforeend", word); //just for testing the word
-
-// document.getElementById("number-guesses-left").insertAdjacentHTML("beforeend", totalAllowedGuesses)
-
-// document.onkeydown = charFilter();
-// winCheck(winCheckStr);
-
-testingVar.insertAdjacentHTML("beforeend", word); //just for testing the word
-
-document.getElementById("number-guesses-left").insertAdjacentHTML("beforeend", totalAllowedGuesses)
+initializeInformation(word);  //so i can call everthing inside winCheck() and resetGame()
 
 document.onkeydown = function(event) {
 
@@ -161,6 +125,6 @@ document.onkeydown = function(event) {
   }
 
   console.log(changeUnderscore)
-  winCheck(winCheckStr);
+  // winCheck(winCheckStr);
 
 }

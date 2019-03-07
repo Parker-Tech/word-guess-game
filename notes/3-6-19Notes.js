@@ -233,3 +233,58 @@ document.onkeydown = function(event) {
   console.log(word)
   // console.log(replaceLastUnderScore)
 }
+
+// function charFilter(event) {
+
+//   theChoice = event.key.toLowerCase();
+  
+//   if(letterCheck(theChoice)){
+
+//     allGuessArr.push(theChoice);  // use allGuessArr to check if the key has been hit already
+
+//     if(word.includes(theChoice)){ //add && theChoice.isNotIn(correctGuessArray)   
+
+//       changeUnderscore = document.getElementById("placeholder").innerHTML;
+//       correctGuesses.push(theChoice);
+//       replaceCharInUnderscore(word, changeUnderscore, theChoice);
+
+//     }else{
+
+//       theChoice = theChoice.toUpperCase();
+
+//       if(wrongGuessesTaken == 0){
+//         document.getElementById("letters-guessed").insertAdjacentText("beforeend", theChoice);
+//       }else{
+//         document.getElementById("letters-guessed").insertAdjacentText("beforeend",  " | " + theChoice);
+//       }
+
+//       if(wrongGuessesTaken == 13){
+//         var reloadConfirm = confirm("You Lose\nTry Again?")   //play Bruh sound effect #2
+//         if(reloadConfirm){
+//           location.reload();
+//         }else{
+//           //something funny?
+//         }
+//       }
+      
+//       wrongGuessesTaken++;
+
+//       document.getElementById("number-guesses-left").innerText = "Number of Guesses Left: " + (totalAllowedGuesses - wrongGuessesTaken);
+
+
+//     }
+
+//   }else {
+
+//     alert("No numbers, spaces or special characters are in any of these words.");
+
+//   }
+
+// }
+
+// testingVar.insertAdjacentHTML("beforeend", word); //just for testing the word
+
+// document.getElementById("number-guesses-left").insertAdjacentHTML("beforeend", totalAllowedGuesses)
+
+// document.onkeydown = charFilter();
+// winCheck(winCheckStr);

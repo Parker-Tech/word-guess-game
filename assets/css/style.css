@@ -13,7 +13,15 @@
   letter-spacing: 10px;
 }
 
+/* .jumbotron {
+  height: 30vh;
+} */
+
+/* .top-margin-for-head {
+  margin-top: 1vh;
+} */
+
 #large-win-font {
   color: #83C1FF;
-  font-size: 60px;
+  font-size: 100px;
 }
