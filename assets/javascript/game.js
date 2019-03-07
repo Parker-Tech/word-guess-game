@@ -61,7 +61,6 @@ function winCheck(str) {
     totalWinCounter++;
     document.getElementById("jumbotron-win-screen").innerHTML = '<h1 class="large-win-font">You Win!</h1><p>Click Me to Play Again!</p>';
     document.getElementById("jumbotron-win-screen").onclick = function() {resetGame()};
-
   }
 }
 
@@ -70,7 +69,6 @@ function resetGame() {
   clearPreviousParameters();
   initializeInformation(word);
 }
-
 
 initializeInformation(word);  //so i can call everthing inside winCheck() and resetGame()
 
@@ -94,19 +92,18 @@ document.onkeydown = function(event) {
 
       if(wrongGuessesTaken == 0){
         document.getElementById("letters-guessed").insertAdjacentText("beforeend", theChoice);
-      }else{
-        document.getElementById("letters-guessed").insertAdjacentText("beforeend",  " | " + theChoice);
-      }
-
-      if(wrongGuessesTaken == 13){
+        wrongGuessesTaken++;
+      }else if(wrongGuessesTaken == 13){
         document.getElementById("jumbotron-win-screen").innerHTML = '<h1 class="large-win-font">You Lose!</h1><p>Click Me to Play Again!</p>';
         document.getElementById("jumbotron-win-screen").onclick = function() {resetGame()};
+      }else if(wrongGuessesTaken > 13){
+        alert("Omae wa mou shindeiru");
+      }else{
+        document.getElementById("letters-guessed").insertAdjacentText("beforeend",  " | " + theChoice);
+        wrongGuessesTaken++;
       }
-      
-      wrongGuessesTaken++;
 
       document.getElementById("number-guesses-left").innerText = "Number of Guesses Left: " + (totalAllowedGuesses - wrongGuessesTaken);
-
 
     }
 
@@ -115,8 +112,5 @@ document.onkeydown = function(event) {
     alert("No numbers, spaces or special characters are in any of these words.");
 
   }
-
-  console.log(changeUnderscore)
-  // winCheck(winCheckStr);
 
 }
