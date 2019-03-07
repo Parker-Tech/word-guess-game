@@ -17,11 +17,6 @@ var theChoice;
 var totalWinCounter = 0;
 var regex0 = /^[a-z]*$/
 
-
-// for(i = 0; i < word.length; i++) { 
-//   initialUnderscore.insertAdjacentHTML("beforeend", "_");
-// }
-
 function initializeInformation(word){
   for(i = 0; i < word.length; i++) { 
     initialUnderscore.insertAdjacentHTML("beforeend", "_");
@@ -66,15 +61,16 @@ function winCheck(str) {
     totalWinCounter++;
     document.getElementById("jumbotron-win-screen").innerHTML = '<h1 class="large-win-font">You Win!</h1><p>Click Me to Play Again!</p>';
     document.getElementById("jumbotron-win-screen").onclick = function() {resetGame()};
+
   }
 }
 
 function resetGame() {
-  var word = wordList[Math.floor(Math.random() * wordList.length)];
+  word = wordList[Math.floor(Math.random() * wordList.length)];
   clearPreviousParameters();
   initializeInformation(word);
-  console.log()
 }
+
 
 initializeInformation(word);  //so i can call everthing inside winCheck() and resetGame()
 
@@ -103,12 +99,8 @@ document.onkeydown = function(event) {
       }
 
       if(wrongGuessesTaken == 13){
-        var reloadConfirm = confirm("You Lose\nTry Again?")   //play Bruh sound effect #2
-        if(reloadConfirm){
-          location.reload();
-        }else{
-          //something funny?
-        }
+        document.getElementById("jumbotron-win-screen").innerHTML = '<h1 class="large-win-font">You Lose!</h1><p>Click Me to Play Again!</p>';
+        document.getElementById("jumbotron-win-screen").onclick = function() {resetGame()};
       }
       
       wrongGuessesTaken++;
