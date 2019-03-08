@@ -95,6 +95,10 @@ document.onkeydown = function(event) {
         wrongGuessesTaken++;
       }else if(wrongGuessesTaken == 13){
         document.getElementById("jumbotron-win-screen").innerHTML = '<h1 class="large-win-font">You Lose!</h1><p>Click Me to Play Again!</p>';
+        // var audioElement = document.createElement("audio");
+        // audioElement.setAttribute("src", "assets/sounds/BruhSound#2");
+        // audioElement.play();
+        document.getElementById("bruh-sound").play();
         document.getElementById("jumbotron-win-screen").onclick = function() {resetGame()};
       }else if(wrongGuessesTaken > 13){
         alert("Omae wa mou shindeiru");
