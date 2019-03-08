@@ -5,7 +5,6 @@ var initialUnderscore = document.getElementById("placeholder");
 var changeUnderscore;
 var testingVar = document.getElementById("testing");
 var guessesLeftStr;
-var allGuessArr = [];
 var wrongGuesses = [];
 var correctGuesses = [];
 var underScoreArr = [];
@@ -44,7 +43,6 @@ function replaceCharInUnderscore(chosenWord, underScores, char) {
       document.getElementById("placeholder").innerHTML = underScores;
     }
   }
-  // winCheckStr = underScores;
   winCheck(underScores);
 }
 
@@ -70,17 +68,16 @@ function resetGame() {
   initializeInformation(word);
 }
 
-initializeInformation(word);  //so i can call everthing inside winCheck() and resetGame()
+initializeInformation(word);  
+//so i can call everthing inside winCheck() and resetGame()
 
 document.onkeydown = function(event) {
 
   theChoice = event.key.toLowerCase();
   
-  if(letterCheck(theChoice)){
+  if(letterCheck(theChoice)){ 
 
-    allGuessArr.push(theChoice);  // use allGuessArr to check if the key has been hit already
-
-    if(word.includes(theChoice)){ //add && theChoice.isNotIn(correctGuessArray)   
+    if(word.includes(theChoice)){
 
       changeUnderscore = document.getElementById("placeholder").innerHTML;
       correctGuesses.push(theChoice);
@@ -95,9 +92,6 @@ document.onkeydown = function(event) {
         wrongGuessesTaken++;
       }else if(wrongGuessesTaken == 13){
         document.getElementById("jumbotron-win-screen").innerHTML = '<h1 class="large-win-font">You Lose!</h1><p>Click Me to Play Again!</p>';
-        // var audioElement = document.createElement("audio");
-        // audioElement.setAttribute("src", "assets/sounds/BruhSound#2");
-        // audioElement.play();
         document.getElementById("bruh-sound").play();
         document.getElementById("jumbotron-win-screen").onclick = function() {resetGame()};
       }else if(wrongGuessesTaken > 13){
