@@ -33,7 +33,7 @@ function clearPreviousParameters() {
   document.getElementById("letters-guessed").innerHTML = "Letters Guessed: ";
   document.getElementById("number-guesses-left").innerHTML = "Number of Guesses Left: ";
   document.getElementById("number-wins").innerHTML = "Number of Wins: "
-  document.getElementById("testing").innerHTML = "Word: ";
+  document.getElementById("testing").innerHTML = "(click to hide)Word: ";
 }
 
 function replaceCharInUnderscore(chosenWord, underScores, char) {
@@ -70,6 +70,15 @@ function resetGame() {
 
 initializeInformation(word);  
 //so i can call everthing inside winCheck() and resetGame()
+
+document.getElementById("testing").onclick = function(){
+  var hideWord = document.getElementById("testing");
+  if (hideWord.style.display === "none") {
+    hideWord.style.display = "block";
+  } else {
+    hideWord.style.display = "none";
+  }
+};
 
 document.onkeydown = function(event) {
 
